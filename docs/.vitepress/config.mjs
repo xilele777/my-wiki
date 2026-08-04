@@ -1,11 +1,24 @@
 import { defineConfig } from 'vitepress'
+import { withSidebar } from 'vitepress-sidebar'
 
 // https://vitepress.dev/reference/site-config
-export default defineConfig({
+const vitePressOptions = {
   title: "我的知识库",
   description: "这是一个基于 VitePress 构建的极速静态文档站点。",
   head: [
-    ['script', { src: 'https://identity.netlify.com/v1/netlify-identity-widget.js' }]
+    ['script', { src: 'https://identity.netlify.com/v1/netlify-identity-widget.js' }],
+    // 在主站完成登录（如邀请邮件设置密码）后，自动跳转到管理后台
+    ['script', {}, `
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on('init', function (user) {
+          if (!user) {
+            window.netlifyIdentity.on('login', function () {
+              document.location.href = '/admin/'
+            })
+          }
+        })
+      }
+    `]
   ],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
@@ -14,18 +27,23 @@ export default defineConfig({
       { text: 'Examples', link: '/markdown-examples' }
     ],
 
-    sidebar: [
-      {
-        text: 'Examples',
-        items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
-          { text: 'Runtime API Examples', link: '/api-examples' }
-        ]
-      }
-    ],
-
     socialLinks: [
       { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
     ]
   }
-})
+}
+
+// 自动侧边栏：构建时扫描 docs 下的所有 .md 自动生成目录
+// 选项文档：https://vitepress-sidebar.cdget.com/guide/options
+const vitePressSidebarOptions = {
+  documentRootPath: '/docs',
+  useTitleFromFrontmatter: true,     // 优先用 frontmatter 的 title（Decap CMS 填写的"标题"）
+  useTitleFromFileHeading: true,     // 没有 title 时用文件内的一级标题
+  useFolderTitleFromIndexFile: true, // 文件夹标题取自其下 index.md
+  hyphenToSpace: true,               // 文件名中的 - 显示为空格
+  collapsed: false,                  // 分组默认展开
+  sortMenusByFrontmatterOrder: true, // 按 frontmatter 的 order 排序，数字小的在前（没写 order 的按 0 处理）
+  excludeByGlobPattern: ['public/**']
+}
+
+export default defineConfig(withSidebar(vitePressOptions, vitePressSidebarOptions))

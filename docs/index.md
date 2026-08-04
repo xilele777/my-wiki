@@ -1,25 +1,12 @@
 ---
-# https://vitepress.dev/reference/default-theme-home-page
-layout: home
-
-hero:
-  name: "我的知识库"
-  text: "这是一个基于 VitePress 构建的极速静态文档站点。"
-  tagline: My great project tagline
-  actions:
-    - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
-    - theme: alt
-      text: API Examples
-      link: /api-examples
-
-features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+title: 首页
 ---
 
+# 欢迎来到我的知识库
+
+这是一个基于 VitePress 构建的个人知识库，内容通过 Decap CMS 后台管理。
+
+从左侧侧边栏选择分类开始阅读：
+
+- [技术笔记](/notes/)
+- [生活随笔](/life/)

@@ -1,17 +1,54 @@
+# Decap CMS 配置
+# 文档：https://decapcms.org/docs/configuration-options/
+
 backend:
   name: git-gateway
   branch: main # 如果你的默认分支是 master，请改成 master
+  # 后台每次保存/删除时写入 git 的提交信息，用中文更好读
+  commit_messages:
+    create: "内容：新增「{{slug}}」"
+    update: "内容：更新「{{slug}}」"
+    delete: "内容：删除「{{slug}}」"
+    uploadMedia: "素材：上传 {{path}}"
+    deleteMedia: "素材：删除 {{path}}"
+
+# 后台界面语言：简体中文
+locale: "zh_Hans"
+
+# 部署好后去掉下行开头的 "# " 并填上你的实际域名，后台右上角会出现"查看站点"入口
+# site_url: https://你的站点.netlify.app
 
 # 图片上传到哪里
 media_folder: "docs/public/images"
 public_folder: "/images"
 
+# 每个分类文件夹对应一个 collection（后台左侧的一个入口）。
+# 新增分类时：1) 在 docs/ 下建文件夹并放一个带 title 的 index.md；2) 照抄下面一段改 name/label/folder。
+# 注意：不要建 folder 直接指向 "docs" 的 collection——它会列出首页 index.md，
+# 在后台编辑保存会丢失首页的 hero/features 排版配置。
 collections:
-  - name: "docs"
-    label: "文档管理"
-    folder: "docs"
+  - name: "notes"
+    label: "技术笔记"
+    label_singular: "文章"
+    description: "这里的文章保存在 docs/notes/ 目录，发布后自动出现在站点侧边栏的「技术笔记」分组下。"
+    folder: "docs/notes"
     create: true
     slug: "{{slug}}"
+    sortable_fields: ["title", "order"]
     fields:
-      - { label: "标题", name: "title", widget: "string", required: false }
+      - { label: "标题", name: "title", widget: "string", hint: "显示在侧边栏、文章列表和浏览器标签页" }
+      - { label: "排序", name: "order", widget: "number", value_type: "int", required: false, hint: "侧边栏中的先后顺序，数字越小越靠前，可不填" }
+      - { label: "正文", name: "body", widget: "markdown" }
+
+  - name: "life"
+    label: "生活随笔"
+    label_singular: "文章"
+    description: "这里的文章保存在 docs/life/ 目录，发布后自动出现在站点侧边栏的「生活随笔」分组下。"
+    folder: "docs/life"
+    create: true
+    slug: "{{slug}}"
+    sortable_fields: ["title", "order"]
+    fields:
+      - { label: "标题", name: "title", widget: "string", hint: "显示在侧边栏、文章列表和浏览器标签页" }
+      - { label: "排序", name: "order", widget: "number", value_type: "int", required: false, hint: "侧边栏中的先后顺序，数字越小越靠前，可不填" }
       - { label: "正文", name: "body", widget: "markdown" }
