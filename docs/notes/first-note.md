@@ -2,14 +2,11 @@
 title: 我的第一篇笔记
 order: 1
 ---
-
-# 我的第一篇笔记
-
 这是一篇示例文章，用来演示自动侧边栏的层级效果。
 
 使用 **解法 A（自动侧边栏插件）** 方案，能让你在 Decap CMS 后台创建新 `.md` 文件后，VitePress 自动扫描文件并生成侧边栏目录，省去手动修改 `config.mjs` 的麻烦。
 
-### 第一步：安装自动侧边栏插件
+## 第一步：安装自动侧边栏插件
 
 在项目根目录下打开终端，运行命令安装 `vitepress-plugin-autosidebar`：
 
@@ -20,7 +17,7 @@ npm install -D vitepress-plugin-autosidebar
 
 ---
 
-### 第二步：修改 VitePress 配置文件
+## 第二步：修改 VitePress 配置文件
 
 打开 `.vitepress/config.mjs`，引入插件并将其添加到 `vite: { plugins: [...] }` 配置项中：
 
@@ -55,7 +52,7 @@ export default defineConfig({
 
 ---
 
-### 第三步：控制文章在侧边栏的排序（可选）
+## 第三步：控制文章在侧边栏的排序（可选）
 
 由于静态系统没有“拖拽排序”界面，你可以通过以下两种最直观的方式决定侧边栏的上下顺序：
 
@@ -75,7 +72,7 @@ order: 1
 
 ---
 
-### 第四步：推送到 GitHub 测试
+## 第四步：推送到 GitHub 测试
 
 修改完成后，提交代码并推送到 GitHub：
 
