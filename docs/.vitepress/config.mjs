@@ -27,7 +27,7 @@ const vitePressOptions = {
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
+      { icon: 'github', link: 'https://github.com/xilele777/my-wiki' }
     ]
   }
 }
