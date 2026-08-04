@@ -1,0 +1,17 @@
+backend:
+  name: git-gateway
+  branch: main # 如果你的默认分支是 master，请改成 master
+
+# 图片上传到哪里
+media_folder: "docs/public/images"
+public_folder: "/images"
+
+collections:
+  - name: "docs"
+    label: "文档管理"
+    folder: "docs"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "标题", name: "title", widget: "string", required: false }
+      - { label: "正文", name: "body", widget: "markdown" }
