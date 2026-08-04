@@ -4,6 +4,9 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: "我的知识库",
   description: "这是一个基于 VitePress 构建的极速静态文档站点。",
+  head: [
+    ['script', { src: 'https://identity.netlify.com/v1/netlify-identity-widget.js' }]
+  ],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
