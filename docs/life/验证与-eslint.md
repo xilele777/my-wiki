@@ -9,8 +9,7 @@ order: ""
 
 可以按下面的逻辑理解。
 
-**一、为什么需要数据验证**
-
+## 一、为什么需要数据验证
 应用程序不能接受所有输入。例如，创建笔记时：
 
 - `content` 字段不能缺失；
@@ -36,8 +35,7 @@ if (!body.content) {
 - `return` 很重要，可以避免验证失败后继续执行保存逻辑；
 - 这种方式适合简单检查，但当规则变多时，路由代码会越来越复杂。
 
-**二、使用 Mongoose Schema 验证数据**
-
+## 二、使用 Mongoose Schema 验证数据
 更合理的方式是把验证规则放在 Mongoose 的 Schema 中：
 
 ```js
@@ -77,8 +75,7 @@ Mongoose 自带的验证器包括：
 
 如果内置验证器无法满足需求，还可以使用自定义验证器。
 
-**三、验证失败时会发生什么**
-
+## 三、验证失败时会发生什么
 当数据违反 Schema 中的规则时，执行：
 
 ```js
@@ -103,8 +100,7 @@ note.save()
 2. 把错误交给 Express 的错误处理中间件；
 3. 由统一的地方决定返回什么状态码和错误信息。
 
-**四、统一处理不同类型的错误**
-
+## 四、统一处理不同类型的错误
 错误处理中间件可以根据 `error.name` 区分错误类型：
 
 ```js
@@ -127,8 +123,7 @@ const errorHandler = (error, request, response, next) => {
 
 本页重点介绍了两类错误。
 
-**1. `CastError`**
-
+### 1. `CastError`
 通常出现在 ID 格式不正确时，例如：
 
 ```text
@@ -142,8 +137,7 @@ const errorHandler = (error, request, response, next) => {
 malformatted id
 ```
 
-**2. `ValidationError`**
-
+### 2. `ValidationError`
 当请求数据违反 Mongoose Schema 的验证规则时出现，例如：
 
 - `content` 缺失；
@@ -157,8 +151,7 @@ malformatted id
 
 错误处理中间件的整体价值是：不同路由可以共享一套错误处理逻辑，避免每个路由重复编写错误响应代码。
 
-**五、部署到生产环境**
-
+## 五、部署到生产环境
 验证功能完成后，需要把后端部署到 Fly.io 或 Render。
 
 这一部分的核心是：生产环境必须能够访问 MongoDB。
@@ -207,8 +200,7 @@ database URL is undefined
 
 另外，MongoDB Atlas 还需要配置网络访问权限。由于 Fly.io 不一定提供固定的 IPv4 地址，所以课程中建议允许所有 IP 地址访问。实际生产环境中应根据平台能力和安全要求谨慎配置。
 
-**六、练习 3.19：验证姓名长度**
-
+## 六、练习 3.19：验证姓名长度
 电话簿应用需要增加姓名验证：
 
 ```js
@@ -255,8 +247,7 @@ error.response.data.error
 { runValidators: true }
 ```
 
-**七、练习 3.20：自定义电话号码验证**
-
+## 七、练习 3.20：自定义电话号码验证
 电话号码必须满足：
 
 1. 总长度至少为 8；
@@ -313,8 +304,7 @@ number: {
 - 合适的错误状态码，通常是 `400`；
 - 清晰的错误消息。
 
-**八、练习 3.21：部署全栈版本**
-
+## 八、练习 3.21：部署全栈版本
 本练习要求：
 
 1. 构建前端生产版本；
@@ -338,8 +328,7 @@ number: {
   └── 前端静态文件
 ```
 
-**九、什么是 lint**
-
+## 九、什么是 lint
 Lint 是一种静态代码分析工具，用来在程序运行前检查代码。
 
 它可以发现：
@@ -355,8 +344,7 @@ JavaScript 生态中最常见的工具是 ESLint。
 
 ESLint 不会运行你的程序，而是直接读取源代码并分析代码结构。
 
-**十、安装 ESLint**
-
+## 十、安装 ESLint
 ESLint 应该安装为开发依赖：
 
 ```bash
@@ -390,8 +378,7 @@ npx eslint --init
 eslint.config.mjs
 ```
 
-**十一、配置 ESLint 的语言环境**
-
+## 十一、配置 ESLint 的语言环境
 基础配置大致如下：
 
 ```js
@@ -413,16 +400,14 @@ export default [
 
 几个重要配置如下。
 
-**`files`**
-
+### `files`
 ```js
 files: ['**/*.js']
 ```
 
 表示检查项目中的 JavaScript 文件。
 
-**`sourceType`**
-
+### `sourceType`
 ```js
 sourceType: 'commonjs'
 ```
@@ -439,8 +424,7 @@ const express = require('express')
 import express from 'express'
 ```
 
-**`globals`**
-
+### `globals`
 ```js
 globals: {
   ...globals.node
@@ -460,16 +444,14 @@ globals: {
 ...globals.browser
 ```
 
-**`ecmaVersion`**
-
+### `ecmaVersion`
 ```js
 ecmaVersion: 'latest'
 ```
 
 表示使用最新的 ECMAScript 语法标准。
 
-**十二、启用 ESLint 推荐规则**
-
+## 十二、启用 ESLint 推荐规则
 通过 `@eslint/js` 引入推荐配置：
 
 ```js
@@ -491,8 +473,7 @@ export default [
 
 推荐配置应该放在配置数组前面，然后再添加自己的规则。
 
-**十三、添加代码风格规则**
-
+## 十三、添加代码风格规则
 安装样式插件：
 
 ```bash
@@ -534,8 +515,7 @@ Expected linebreaks to be 'LF' but found 'CRLF'
 
 如果出现这个问题，需要让编辑器使用 LF 换行格式。
 
-**十四、添加更多规则**
-
+## 十四、添加更多规则
 页面还介绍了几个常用规则：
 
 ```js
@@ -592,8 +572,7 @@ const add = (a, b) => a + b
 - `'warn'`：警告；
 - `'off'` 或 `0`：关闭。
 
-**十五、运行 ESLint**
-
+## 十五、运行 ESLint
 检查单个文件：
 
 ```bash
@@ -634,8 +613,7 @@ npm run lint
 
 这样 ESLint 就会忽略 `dist` 中的文件。
 
-**十六、整页知识结构**
-
+## 十六、整页知识结构
 这页的完整逻辑可以概括为：
 
 ```text
@@ -686,8 +664,7 @@ next(error)
 修复所有警告和错误
 ```
 
-**核心记忆点**
-
+## 核心记忆点
 - 验证规则最好放在 Mongoose Schema 中。
 - `required` 用来限制字段缺失。
 - `minLength` 用来限制字符串最小长度。

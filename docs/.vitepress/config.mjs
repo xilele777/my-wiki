@@ -22,6 +22,11 @@ const vitePressOptions = {
   ],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
+    outline: {
+      level: [2, 3],       // 右侧目录收集 ## 和 ### 两级标题
+      label: '本页目录'
+    },
+
     nav: [
       { text: '首页', link: '/' }
     ],
