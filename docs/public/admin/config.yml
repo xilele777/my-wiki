@@ -16,7 +16,7 @@ backend:
 locale: "zh_Hans"
 
 # 部署好后去掉下行开头的 "# " 并填上你的实际域名，后台右上角会出现"查看站点"入口
-# site_url: https://你的站点.netlify.app
+site_url: https://gshy.netlify.app
 
 # 图片上传到哪里
 media_folder: "docs/public/images"
