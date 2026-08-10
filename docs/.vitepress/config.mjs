@@ -5,21 +5,6 @@ import { withSidebar } from 'vitepress-sidebar'
 const vitePressOptions = {
   title: "我的知识库",
   description: "这是一个基于 VitePress 构建的极速静态文档站点。",
-  head: [
-    ['script', { src: 'https://identity.netlify.com/v1/netlify-identity-widget.js' }],
-    // 在主站完成登录（如邀请邮件设置密码）后，自动跳转到管理后台
-    ['script', {}, `
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on('init', function (user) {
-          if (!user) {
-            window.netlifyIdentity.on('login', function () {
-              document.location.href = '/admin/'
-            })
-          }
-        })
-      }
-    `]
-  ],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     outline: {
