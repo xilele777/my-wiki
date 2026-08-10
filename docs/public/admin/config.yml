@@ -2,8 +2,11 @@
 # 文档：https://decapcms.org/docs/configuration-options/
 
 backend:
-  name: git-gateway
-  branch: main # 如果你的默认分支是 master，请改成 master
+  name: github
+  branch: main
+  repo: "xilele777/my-wiki"
+  base_url: https://my-wiki-auth.2519175810.workers.dev
+  auth_endpoint: /auth
   # 后台每次保存/删除时写入 git 的提交信息，用中文更好读
   commit_messages:
     create: "内容：新增「{{slug}}」"
