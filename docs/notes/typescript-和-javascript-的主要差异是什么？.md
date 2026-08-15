@@ -19,7 +19,7 @@ TypeScript (TS) 与 JavaScript (JS) 的主要差异在于，**TypeScript 是 Jav
 
 ---
 
-### ⚙️ 核心差异：类型系统
+### 核心差异：类型系统
 
 这是两者最本质的区别。
 
