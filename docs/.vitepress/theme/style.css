@@ -137,3 +137,54 @@
   --docsearch-primary-color: var(--vp-c-brand-1) !important;
 }
 
+/**
+ * Component: Sidebar
+ *
+ * 左侧目录标题超出一行时截断为省略号，避免长标题换行撑高侧边栏。
+ * .item / .link 是 flex 容器，flex 子项默认 min-width: auto 会被内容撑开，
+ * 必须逐层置为 0，text-overflow 才会生效。
+ * overflow 只加在 .text 上：.item 上的 .indicator 是负偏移绝对定位，
+ * 一旦在祖先裁剪就会丢失激活态左侧指示条。
+ * -------------------------------------------------------------------------- */
+
+.VPSidebar .VPSidebarItem .item {
+  min-width: 0;
+}
+
+.VPSidebar .VPSidebarItem .link {
+  min-width: 0;
+}
+
+.VPSidebar .VPSidebarItem .text {
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/**
+ * 截断掉的部分，在 hover 或键盘聚焦时即时展开为气泡。
+ * 元素由 SidebarItemTooltip.vue 创建并挂在 document.body 下 —— 留在侧边栏
+ * 内会被 .VPSidebar 的 overflow 裁掉（它带 transform，连 fixed 都逃不掉），
+ * 只能挤在侧边栏宽度里折行。挂到 body 才能像原生 tooltip 那样单行铺开。
+ *
+ * 视觉刻意压低存在感：12px、常规字重、窄内边距、小圆角、极淡投影，
+ * 目的是让它读起来像系统提示，而不是页面上的一张卡片。
+ * -------------------------------------------------------------------------- */
+
+.vp-sidebar-tip {
+  position: fixed;
+  z-index: 100;
+  padding: 3px 7px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 4px;
+  background-color: var(--vp-c-bg-elv);
+  color: var(--vp-c-text-1);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 17px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  /* 气泡贴着指针出现，不能截断鼠标事件 */
+  pointer-events: none;
+}
+
