@@ -16,6 +16,10 @@ const vitePressOptions = {
       { text: '首页', link: '/' }
     ],
 
+    search: {
+      provider: 'local'
+    },
+
     socialLinks: [
       { icon: 'github', link: 'https://github.com/xilele777' }
     ]
